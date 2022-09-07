@@ -8,7 +8,8 @@
     padding: 14px 16px;
     width: 100%;
     max-width: 380px;
-    background: #E5E5E5;
+    color: #7E7E7E;
+    background-color: #E5E5E5;
 }
 .inputModule::placeholder{
     font-family: "Nunito Sans", sans-serif;
@@ -17,4 +18,5 @@
     font-size: 16px;
     line-height: 26px;
     color: #7E7E7E;
+    background-color: #E5E5E5;
 }

@@ -2,6 +2,7 @@ import React, {FC, useEffect, useMemo, useState} from 'react';
 import UserCard from "./UserCard";
 import axios from "axios";
 import BaseBtn from "../UI/button/BaseBtn";
+import Loader from "../UI/loader/Loader";
 
 const UsersList :FC= () => {
 
@@ -21,7 +22,6 @@ const UsersList :FC= () => {
         setArrayLength(totalUsers)
     }
 
-
     const showItems = () => {
         setCountItem(countItem + 6)
     }
@@ -31,17 +31,19 @@ const UsersList :FC= () => {
         setArrayLength(arrayLength + 6)
     }, [countItem])
 
-    console.log(userData)
     return (
         <>
             <div className='user-list'>
                 <>
-                    {userData.map((item, idx) => <UserCard key = {idx} props={item}/>)}
+                    {userData.length > 0
+                        ? userData.map((item, idx) => <UserCard key = {idx} props={item}/>)
+                        : <Loader/>
+                    }
                 </>
             </div>
             <>
                 {
-                    userData.length === arrayLength
+                    userData.length === arrayLength || userData.length === 0
                     ? null
                     : <BaseBtn
                             onClick={showItems}

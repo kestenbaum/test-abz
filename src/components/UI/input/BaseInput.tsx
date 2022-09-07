@@ -1,21 +1,13 @@
 import React, {FC} from 'react';
 import style from './BaseInput.module.css'
-
-interface IInput {
-    valueInput: string
-    setValueInput: any
-    placeholder?: string
-    type: string
+interface IBaseInput {
+    props?: any
 }
-
-const BaseInput :FC<IInput> = ({valueInput, setValueInput, placeholder, type}) => {
+const BaseInput :FC<IBaseInput> = (props) => {
     return (
         <input
+            {...props}
             className={style.inputModule}
-            placeholder={placeholder}
-            type={type}
-            value={valueInput}
-            onChange={e => setValueInput(e.target.value)}
         />
     );
 };
