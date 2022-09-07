@@ -1,0 +1,22 @@
+.baseBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 29px;
+    border-radius: 15px;
+    background: #F4E041;
+    transition-duration: .3s;
+    border: none;
+    cursor: pointer;
+}
+.baseBtn:hover{
+    transition-duration: .3s;
+    background: #FFE302;
+}
+.childrenBtn{
+    font-family:"Nunito Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+}
