@@ -1,29 +1,55 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import UserCard from "./UserCard";
 import axios from "axios";
+import BaseBtn from "../UI/button/BaseBtn";
 
 const UsersList :FC= () => {
 
     const [userData, setUserData] = useState([])
-    const [totalPage, setTotalPage] = useState<number>(0)
+    const [arrayLength, setArrayLength] = useState<number>(1)
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [countItem, setCountItem] = useState<number>(6)
 
-    async function fetch () {
-        const responce =  await axios.get('https://frontend-test-assignment-api.abz.agency/api/v1/users')
+    async function fetchUser () {
+        const responce =  await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${currentPage}&count=${countItem}`)
         const users = responce.data.users
-        const pages = responce.data.total_pages
+        const currentPages = responce.data.page
+        const totalUsers = responce.data.total_users
+
         setUserData(users)
-        setTotalPage(pages)
+        setCurrentPage(currentPages)
+        setArrayLength(totalUsers)
+    }
+
+
+    const showItems = () => {
+        setCountItem(countItem + 6)
     }
 
     useEffect(() => {
-        fetch()
-    }, [])
+        fetchUser()
+        setArrayLength(arrayLength + 6)
+    }, [countItem])
 
-
+    console.log(userData)
     return (
-        <div className='user-list'>
-            {userData.map((item, idx) => <UserCard key = {idx} props={item}/>)}
-        </div>
+        <>
+            <div className='user-list'>
+                <>
+                    {userData.map((item, idx) => <UserCard key = {idx} props={item}/>)}
+                </>
+            </div>
+            <>
+                {
+                    userData.length === arrayLength
+                    ? null
+                    : <BaseBtn
+                            onClick={showItems}
+                            children={'Show more'}
+                        />
+                }
+            </>
+        </>
     );
 };
 

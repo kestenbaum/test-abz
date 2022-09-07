@@ -8,11 +8,11 @@ const UserCard :FC<IUserCard>= ({props}) => {
     return (
         <div className='user-card'>
             <img className="block-img" src={props.photo}/>
-            <span className="person-name">{props.name}</span>
+            <p className="person-name">{props.name}</p>
             <div className="person-info">
-                <div className="person-info">{props.position}</div>
-                <span className="person-mail">{props.email}</span>
-                <span className="person-number">{props.phone}</span>
+                <p className="person-info">{props.position}</p>
+                <p className="person-mail">{props.email}</p>
+                <p className="person-number">{props.phone}</p>
             </div>
         </div>
     );

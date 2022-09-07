@@ -23,6 +23,7 @@ body{
   top: 0;
   left: 0;
   right: 0;
+  z-index: 999;
 }
 .header-wrapper{
   display: flex;
@@ -131,6 +132,22 @@ body{
   flex-direction: column;
   align-items: center;
   width: 100%;
+  overflow-x: hidden;
+}
+.person-mail{
+  word-wrap: break-word;
+}
+.pagination{
+  display: flex;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.pagination-item{
+  cursor: pointer;
+}
+.pagination-itemCurrent {
+  color: #F4E041;
+  transform: scale(1.1);
 }
 
 //auth
