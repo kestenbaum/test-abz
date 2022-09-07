@@ -1,7 +1,6 @@
 @import "fonts.css";
 @import "variables.css";
-
-*, *::after, *::before{
+*, *::after, *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,3 +10,5 @@
   font-size: 16px;
   font-family: "Nunito Sans", sans-serif;
 }
+
+/*# sourceMappingURL=main.css.map */
