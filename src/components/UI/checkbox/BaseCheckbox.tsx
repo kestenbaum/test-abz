@@ -2,20 +2,20 @@ import React, {FC} from 'react';
 import style from './BaseCheckbox.module.css'
 
 interface IBaseCheckbox {
-    disabled ?: boolean
     children: string
-    checked?: boolean
+    valuePosition: string
+    setValuePosition: any
 }
 
-const BaseCheckbox :FC<IBaseCheckbox> = ({disabled,children, checked}) => {
+const BaseCheckbox :FC<IBaseCheckbox> = ({children,valuePosition, setValuePosition}) => {
     return (
         <label className={style.label}>
             <input
                 type={"radio"}
                 name="check"
-                disabled={disabled}
-                checked={checked}
                 className={style.checkbox}
+                value={valuePosition}
+                onChange = {e => setValuePosition(e.target.value)}
             />
             <span className={style.fakeCheckbox}></span>
             <span

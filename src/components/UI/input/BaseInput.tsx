@@ -15,7 +15,7 @@ const BaseInput :FC<IInput> = ({valueInput, setValueInput, placeholder, type}) =
             placeholder={placeholder}
             type={type}
             value={valueInput}
-            onChange={setValueInput}
+            onChange={e => setValueInput(e.target.value)}
         />
     );
 };

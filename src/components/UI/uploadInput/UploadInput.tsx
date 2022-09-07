@@ -1,7 +1,12 @@
 import React, {FC} from 'react';
 import style from './UploadInput.module.css'
 
-const UploadInput :FC= () => {
+interface IUploadInput {
+    valueImg: any
+    setValueImg: any
+}
+
+const UploadInput :FC<IUploadInput>= ({valueImg, setValueImg}) => {
     return (
         <label className={style.file}>
             <input
@@ -10,6 +15,8 @@ const UploadInput :FC= () => {
                     aria-label="File browser example"
                     accept="image/png, image/jpg, image/gif, image/jpeg"
                     className={style.input}
+                    value={valueImg}
+                    onChange = {e => setValueImg(e.target.value)}
             />
                 <span className={style.fakeInput}>Upload</span>
                 <span className={style.fileCustom}>Upload your photo</span>
