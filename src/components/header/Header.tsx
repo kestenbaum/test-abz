@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import Logo from "./Logo";
+import BaseBtn from "../UI/button/BaseBtn";
 
 const Header :FC= () => {
 
@@ -8,6 +9,10 @@ const Header :FC= () => {
             <div className="container">
                 <div className="header-wrapper">
                     <Logo title={'TESTTASK'}/>
+                    <div className='header-auth'>
+                        <BaseBtn children={'Users'}/>
+                        <BaseBtn children={'Sign up'}/>
+                    </div>
                 </div>
             </div>
         </header>

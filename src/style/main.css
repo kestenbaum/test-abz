@@ -13,11 +13,32 @@
   padding: 0 15px;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.header-wrapper {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+
+.header-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 /*# sourceMappingURL=main.css.map */
