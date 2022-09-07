@@ -1,0 +1,23 @@
+.inputModule{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #D0CFCF;
+    border-radius: 5px;
+    height: 54px;
+    padding: 14px 16px;
+    width: 100%;
+    max-width: 380px;
+    background: #E5E5E5;
+}
+.inputModule::placeholder{
+    font-family: "Nunito Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #7E7E7E;
+}
+.inputModule:focus{
+    color: transparent;
+}

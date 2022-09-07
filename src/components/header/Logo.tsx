@@ -9,8 +9,8 @@ const Logo :FC<ILogo>= ({title}) => {
 
     return (
         <div className='logo'>
-            <img src={logo} alt="logo website"/>
-            <span>{title}</span>
+            <img className='logo-img' src={logo} alt="logo website"/>
+            <span className='logo-title'>{title}</span>
         </div>
     );
 };

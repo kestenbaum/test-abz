@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import Header from "./components/header/Header";
 import FirstScreen from "./components/FirstScreen";
 import Users from "./components/users/Users";
+import Auth from "./components/auth/Auth";
 
 const Layout: FC = () => {
     return (
@@ -9,6 +10,7 @@ const Layout: FC = () => {
             <Header/>
             <FirstScreen/>
             <Users/>
+            <Auth/>
         </>
     );
 };
