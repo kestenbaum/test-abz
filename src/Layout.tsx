@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import BaseBtn from "./style/UI/button/BaseBtn";
+import Header from "./components/header/Header";
 
 const Layout: FC = () => {
     return (
-        <div className='checked'>
-            <BaseBtn children={'text1'}/>
-        </div>
+        <>
+            <Header/>
+        </>
     );
 };
 

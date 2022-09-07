@@ -6,9 +6,18 @@
   box-sizing: border-box;
 }
 
-.checked {
-  font-size: 16px;
-  font-family: "Nunito Sans", sans-serif;
+.container {
+  width: 100%;
+  max-width: 798px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 /*# sourceMappingURL=main.css.map */
