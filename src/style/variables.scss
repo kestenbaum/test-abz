@@ -6,3 +6,14 @@ $yellow-base: #F4E041;
 $blue-base: #00BDD3;
 $yellow-hover: #FFE302;
 $color-disabled: #B4B4B4;
+
+//title
+
+%heading {
+    font-family: "Nunito Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+}
