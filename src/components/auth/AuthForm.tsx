@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import BaseBtn from "../UI/button/BaseBtn";
 import axios from "axios";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -10,7 +10,7 @@ const AuthForm = () => {
     const [disabled, setDisabled] = useState<boolean>(false)
     const [token, setToken] = useState<string>('')
     const [success, setSuccess] = useState<boolean>(false)
-
+    const [nameInput, setNameInput] = useState<string>('Upload your photo')
     const ref:any = useRef()
 
     const {
@@ -20,14 +20,13 @@ const AuthForm = () => {
     } = useForm<IPerson>()
 
     async function getPosition() {
-        const responce = await axios.get('https://frontend-test-assignment-api.abz.agency/api/v1/positions')
-        const positionsPerson = responce.data.positions
-        setPositions([...positionsPerson])
+       await axios.get('https://frontend-test-assignment-api.abz.agency/api/v1/positions')
+            .then(response => setPositions([...response.data.positions]))
     }
 
     async function getTokenApi () {
         await axios.get('https://frontend-test-assignment-api.abz.agency/api/v1/token')
-            .then(responce => setToken(responce.data.token))
+            .then(response => setToken(response.data.token))
     }
 
     const onSubmit:SubmitHandler<IPerson> = (data) => {
@@ -52,6 +51,10 @@ const AuthForm = () => {
         Object.keys(errors).length === 0 ? setDisabled(false) : setDisabled(true)
     }, [Object.keys(errors).length])
 
+    const updatePhotoUser = () => {
+        const getPhotoUser = ref?.current?.files[0]
+        setNameInput(getPhotoUser.name)
+    }
 
     return (
         <>
@@ -124,10 +127,15 @@ const AuthForm = () => {
                                 {...register('photo')}
                                 ref={ref}
                                 accept="image/jpeg"
+                                onChange={updatePhotoUser}
                             />
                             {errors.photo && <div style={{color: 'red'}}>{'error'}</div>}
                             <span className={'fakeInput'}>Upload</span>
-                            <span className={'fileCustom'}>Upload your photo</span>
+                            <span
+                                className={'fileCustom'}
+                            >
+                                {nameInput}
+                            </span>
                         </label>
                     </div>
 

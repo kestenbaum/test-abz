@@ -3,40 +3,45 @@ import UserCard from "./UserCard";
 import axios from "axios";
 import BaseBtn from "../UI/button/BaseBtn";
 import Loader from "../UI/loader/Loader";
+import {IPerson} from "../../types";
 
 const UsersList :FC= () => {
 
-    const [userData, setUserData] = useState([])
+    const [userData, setUserData] = useState<IPerson[]>([])
     const [arrayLength, setArrayLength] = useState<number>(1)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [countItem, setCountItem] = useState<number>(6)
 
+
     async function fetchUser () {
-        const responce =  await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${currentPage}&count=${countItem}`)
-        const users = responce.data.users
-        const currentPages = responce.data.page
-        const totalUsers = responce.data.total_users
+        const response =  await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${currentPage}&count=${countItem}`)
+        const users = response.data.users
+        const currentPages = response.data.page
+        const totalUsers = response.data.total_users
 
         setUserData(users)
         setCurrentPage(currentPages)
         setArrayLength(totalUsers)
     }
 
+    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
+
     const showItems = () => {
-        setCountItem(countItem + 6)
+        setCurrentPage(currentPage + 1)
+        setUserData(prev => [...prev, ...userData])
     }
 
     useEffect(() => {
         fetchUser()
         setArrayLength(arrayLength + 6)
-    }, [countItem])
+    }, [currentPage])
 
     return (
         <>
             <div className='user-list'>
                 <>
                     {userData.length > 0
-                        ? userData.map((item, idx) => <UserCard key = {idx} props={item}/>)
+                        ? sortUserData.map((item, idx) => <UserCard key = {idx} props={item}/>)
                         : <Loader/>
                     }
                 </>

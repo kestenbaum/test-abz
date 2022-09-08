@@ -5,6 +5,8 @@ import Users from "./components/users/Users";
 import Auth from "./components/auth/Auth";
 import Footer from "./components/Footer";
 
+//todo подправить отрисовку компоненти регистрации и успешной регистрации
+
 const Layout: FC = () => {
     return (
         <>
