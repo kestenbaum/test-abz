@@ -20,3 +20,7 @@
     color: #7E7E7E;
     background-color: #E5E5E5;
 }
+.inputModule:focus{
+    border: 1px solid #D0CFCF ;
+    outline: none;
+}

@@ -1,5 +1,4 @@
 @import "fonts.css";
-@import "variables.css";
 *, *::after, *::before {
   margin: 0;
   padding: 0;
@@ -131,8 +130,11 @@ body {
 
 .person-name {
   text-align: center;
-  width: 100%;
   overflow-x: hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .person-info {
@@ -152,12 +154,11 @@ body {
   line-height: 26px;
   text-align: center;
   text-decoration: none;
-  overflow: hidden;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: rgba(0, 0, 0, 0.87);
-  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .pagination {
