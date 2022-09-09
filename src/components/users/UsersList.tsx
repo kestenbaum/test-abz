@@ -1,9 +1,10 @@
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import UserCard from "./UserCard";
 import axios from "axios";
 import BaseBtn from "../UI/button/BaseBtn";
 import Loader from "../UI/loader/Loader";
 import {IPerson} from "../../types";
+
 
 const UsersList :FC= () => {
 
@@ -11,7 +12,6 @@ const UsersList :FC= () => {
     const [arrayLength, setArrayLength] = useState<number>(1)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [countItem, setCountItem] = useState<number>(6)
-
 
     async function fetchUser () {
         const response =  await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${currentPage}&count=${countItem}`)
@@ -24,17 +24,16 @@ const UsersList :FC= () => {
         setArrayLength(totalUsers)
     }
 
-    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
 
     const showItems = () => {
-        setCurrentPage(currentPage + 1)
-        setUserData(prev => [...prev, ...userData])
+        setCountItem(countItem + 6)
     }
+    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
 
     useEffect(() => {
         fetchUser()
         setArrayLength(arrayLength + 6)
-    }, [currentPage])
+    }, [countItem])
 
     return (
         <>
