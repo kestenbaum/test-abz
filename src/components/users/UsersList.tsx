@@ -1,39 +1,30 @@
 import React, {FC, useEffect, useState} from 'react';
 import UserCard from "./UserCard";
-import axios from "axios";
 import BaseBtn from "../UI/button/BaseBtn";
 import Loader from "../UI/loader/Loader";
 import {IPerson} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {fetchUsersDate, userSlice} from "../../store/reducer/userSlice";
+
 
 
 const UsersList :FC= () => {
+    const dispatch = useAppDispatch()
+    const [arrayLength] = useState<number>(1)
 
-    const [userData, setUserData] = useState<IPerson[]>([])
-    const [arrayLength, setArrayLength] = useState<number>(1)
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const [countItem, setCountItem] = useState<number>(6)
-
-    async function fetchUser () {
-        const response =  await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${currentPage}&count=${countItem}`)
-        const users = response.data.users
-        const currentPages = response.data.page
-        const totalUsers = response.data.total_users
-
-        setUserData(users)
-        setCurrentPage(currentPages)
-        setArrayLength(totalUsers)
-    }
-
-
-    const showItems = () => {
-        setCountItem(countItem + 6)
-    }
-    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
+    /*---- get users ----*/
+    const userData = useAppSelector(state => state.ActionUserSlice.userData)
 
     useEffect(() => {
-        fetchUser()
-        setArrayLength(arrayLength + 6)
-    }, [countItem])
+        dispatch(fetchUsersDate([]));
+    }, [])
+
+    const showItems = () => {
+        dispatch(userSlice.actions.showMore())
+    }
+
+    /*---- Sorted Post ----*/
+    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
 
     return (
         <>
