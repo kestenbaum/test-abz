@@ -9,18 +9,22 @@ import {fetchPositionDate} from "../../store/reducer/positionSlice";
 import {fetchTokenSlice} from "../../store/reducer/tokenSlice";
 import UploadFile from "../UI/FormSend/uploadFile/uploadFile";
 import SelectedPositions from "../UI/FormSend/selectedPositions/SelectedPositions";
+import {fetchUsersDate} from "../../store/reducer/userSlice";
 
 
 const AuthForm :FC = () => {
+
+    //todo через files написать обработку файла загрузки
+
     /*---- get data ----*/
     const tokenData = useAppSelector(state => state.ActionTokenSlice.tokenData)
     const positionData = useAppSelector(state => state.ActionPositionSlice.positionData)
     const dispatch = useAppDispatch()
 
-
     const [disabled, setDisabled] = useState<boolean>(false)
     const [success, setSuccess] = useState<boolean>(false)
     const ref:any = useRef()
+    const [errorValue, setErrorValue] = useState<any>()
 
     /*---- React Hook Form ----*/
     const {
@@ -29,9 +33,11 @@ const AuthForm :FC = () => {
         formState: {errors}
     } = useForm<IPerson>()
 
+
     /*---- send form ----*/
     const onSubmit:SubmitHandler<IPerson> = (data) => {
         const getPositionItem = positionData.find(item => item.name === data.position)
+        const photoItem = ref.current.files[0]
         const formData = new FormData()
         formData.append('registration_timestamp', String(Date.now()))
         formData.append('id', String(Date.now()))
@@ -40,19 +46,33 @@ const AuthForm :FC = () => {
         formData.append('email', data.email);
         formData.append('phone', data.phone);
         formData.append('position', data.position);
-        formData.append('photo', ref.current.files[0]);
+        formData.append('photo', photoItem);
         axios.post('https://frontend-test-assignment-api.abz.agency/api/v1/users', formData, {headers: {'Token': tokenData}})
-            .then(response => setSuccess(response.data.success))
+            .then(response => {
+                setSuccess(response.data.success)
+                dispatch(fetchUsersDate(1))
+            })
     }
+
 
     useEffect(() => {
         dispatch(fetchPositionDate())
         dispatch(fetchTokenSlice())
+
     }, [])
 
+
     useEffect(() => {
-        Object.keys(errors).length === 0 ? setDisabled(false) : setDisabled(true)
-    }, [Object.keys(errors).length])
+        if (Object.keys(errors).length === 0){
+            setDisabled(false)
+            console.log(ref.current?.files)
+        }
+        else {
+            setDisabled(true)
+        }
+    }, [Object.keys(errors).length, errorValue])
+
+
 
     return (
         <>
@@ -104,13 +124,12 @@ const AuthForm :FC = () => {
                                 array={positionData}
                                 register={register}
                             />
-
+                           {errorValue?.length > 0 && <div style={{color: 'red', marginBottom: '20px'}}>You must upload your avatar</div>}
                             <UploadFile
                                 register={register}
                                 errors={errors}
                                 ref={ref}
                             />
-
                             <BaseBtn
                                 children={'Sign up'}
                                 disabled={disabled}
