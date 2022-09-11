@@ -1,35 +1,44 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {IPerson} from "../../types";
 import axios from "axios";
-
-
-const host:string = `https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6`
-
-export const fetchUsersDate = createAsyncThunk<IPerson[], any, {fulfilledMeta: any}>(
-    'users/fetchUsers',
-    async () => {
-           return  await axios.get(host).then(response => response.data.users)
-    }
-)
+import {IPerson} from "../../types";
 
 interface IState {
-    userData: IPerson[]
+    totalUsers: number
+    page: number
+    userData: any
     error: string | boolean
     loading: boolean
+    total_users: number
+    nextLink: string
 }
 
 const initialState:IState = {
+    totalUsers: 1,
+    page: 1,
     userData: [],
     error: '',
-    loading: false
+    loading: false,
+    total_users: 0,
+    nextLink: ''
 }
+
+export const fetchUsersDate = createAsyncThunk(
+    'user-slice/fetchUsers',
+    async (page:number) => {
+           return await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page}&count=6`)
+               .then(response => response.data)
+    }
+)
 
 export const userSlice = createSlice({
     name: 'user-slice',
     initialState,
     reducers:{
-        showMore(state){
-            state.userData = [...state.userData, ...state.userData]
+        nextPage (state, action) {
+            state.page = action.payload
+        },
+        showMore (state, action) {
+            state.userData = [...state.userData, action.payload]
         }
     },
     extraReducers: builder => {
@@ -40,7 +49,8 @@ export const userSlice = createSlice({
             })
             .addCase(fetchUsersDate.fulfilled, (state, action) => {
                 state.loading = true;
-                state.userData = action.payload;
+                state.userData = [...action.payload.users].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp);
+                state.totalUsers = action.payload.total_users
             })
     }
 })
