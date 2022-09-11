@@ -7,6 +7,7 @@ interface IUploadFile {
 }
 
 const UploadFile :FC<IUploadFile> = React.forwardRef(({register, errors}, ref) => {
+
     /*---- errors ----*/
     const [errorType, setErrorType] = useState<string>('')
     const [errorSize, setErrorSize] = useState<string>('')
@@ -43,6 +44,7 @@ const UploadFile :FC<IUploadFile> = React.forwardRef(({register, errors}, ref) =
         } else {
             setErrorSize('')
         }
+
     }
 
     return (
