@@ -7,38 +7,43 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchUsersDate, userSlice} from "../../store/reducer/userSlice";
 
 
-
 const UsersList :FC= () => {
     const dispatch = useAppDispatch()
-    const [arrayLength] = useState<number>(1)
+    const totalAllUsers = useAppSelector(state => state.ActionUserSlice.totalUsers)
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [currentUserDate, setCurrentUserDate] = useState<IPerson[]>([])
 
-    /*---- get users ----*/
-    const userData = useAppSelector(state => state.ActionUserSlice.userData)
-
-    useEffect(() => {
-        dispatch(fetchUsersDate([]));
-    }, [])
-
-    const showItems = () => {
-        dispatch(userSlice.actions.showMore())
+    async function showItems ()  {
+        setCurrentPage(currentPage + 1)
+        const users = dispatch(fetchUsersDate(currentPage))
+        const newUsers = await users.then(response => response.payload.users)
+        setCurrentUserDate( [...currentUserDate, ...newUsers])
     }
 
-    /*---- Sorted Post ----*/
-    const sortUserData = [...userData].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp)
+    useEffect(() => {
+        setCurrentPage(currentPage + 1)
+        const users = dispatch(fetchUsersDate(currentPage))
+        users.then(response => setCurrentUserDate(response.payload.users))
+    }, [])
+
+    useEffect(() => {
+        const users = dispatch(fetchUsersDate(1))
+        users.then(response => setCurrentUserDate(response.payload.users))
+    }, [totalAllUsers])
 
     return (
         <>
             <div className='user-list'>
                 <>
-                    {userData.length > 0
-                        ? sortUserData.map((item, idx) => <UserCard key = {idx} props={item}/>)
+                    {currentUserDate.length > 0
+                        ? currentUserDate.map((item:IPerson, idx:number) => <UserCard key = {idx} props={item}/>)
                         : <Loader/>
                     }
                 </>
             </div>
             <>
                 {
-                    userData.length === arrayLength || userData.length === 0
+                    currentUserDate.length === totalAllUsers
                     ? null
                     : <BaseBtn
                             onClick={showItems}
