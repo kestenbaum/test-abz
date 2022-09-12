@@ -45,12 +45,13 @@ export const userSlice = createSlice({
         builder
             .addCase(fetchUsersDate.pending, (state) => {
                 state.loading = false
-                state.error = ''
+                state.error = 'Error 500'
             })
             .addCase(fetchUsersDate.fulfilled, (state, action) => {
                 state.loading = true;
                 state.userData = [...action.payload.users].sort((a:IPerson, b:IPerson) => b.registration_timestamp - a.registration_timestamp);
                 state.totalUsers = action.payload.total_users
+                state.error = ''
             })
     }
 })

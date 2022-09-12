@@ -7,12 +7,12 @@ interface IUploadFile {
 }
 
 const UploadFile :FC<IUploadFile> = React.forwardRef(({register, errors}, ref) => {
-
     /*---- errors ----*/
     const [errorType, setErrorType] = useState<string>('')
     const [errorSize, setErrorSize] = useState<string>('')
     const [errorStyleFakeInput, setErrorStyleFakeInput] = useState<string>(['fakeInput'].join(' '))
     const [errorStyleFileCustom, setErrorStyleFileCustom] = useState<string>(['fileCustom'].join(' '))
+
 
     const [nameInput, setNameInput] = useState<string>('Upload your photo')
     const [file, setFile] = useState<any>(null);
@@ -64,8 +64,8 @@ const UploadFile :FC<IUploadFile> = React.forwardRef(({register, errors}, ref) =
                 <span
                     className={errorStyleFileCustom}
                 >
-                                        {nameInput}
-                                    </span>
+                    {nameInput}
+                </span>
             </label>
             {errorSize.length > 1 && <div style={{color: 'red'}}>{errorSize}</div>}
             {errorType.length > 1 && <div style={{color: 'red'}}>{errorType}</div>}

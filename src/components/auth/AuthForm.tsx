@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import BaseBtn from "../UI/button/BaseBtn";
 import axios from "axios";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -14,8 +14,6 @@ import {fetchUsersDate} from "../../store/reducer/userSlice";
 
 const AuthForm :FC = () => {
 
-    //todo через files написать обработку файла загрузки
-
     /*---- get data ----*/
     const tokenData = useAppSelector(state => state.ActionTokenSlice.tokenData)
     const positionData = useAppSelector(state => state.ActionPositionSlice.positionData)
@@ -23,9 +21,8 @@ const AuthForm :FC = () => {
 
     const [disabled, setDisabled] = useState<boolean>(false)
     const [success, setSuccess] = useState<boolean>(false)
+    const [errorUploads, setErrorUploads] = useState<string>('')
     const ref:any = useRef()
-    const [errorValue, setErrorValue] = useState<any>()
-
     /*---- React Hook Form ----*/
     const {
         register,
@@ -54,25 +51,27 @@ const AuthForm :FC = () => {
             })
     }
 
+    const handlerUploadFile = useCallback(() => {
+        ref.current?.files.length === 0 ? setErrorUploads('You must upload your avatar') : setErrorUploads('')
+    }, [ref.current?.files])
 
     useEffect(() => {
         dispatch(fetchPositionDate())
         dispatch(fetchTokenSlice())
-
     }, [])
 
 
     useEffect(() => {
         if (Object.keys(errors).length === 0){
             setDisabled(false)
-            console.log(ref.current?.files)
         }
         else {
             setDisabled(true)
         }
-    }, [Object.keys(errors).length, errorValue])
+    }, [Object.keys(errors).length])
 
-
+    //clear error upload
+    setTimeout(() => {setErrorUploads('')}, 1000)
 
     return (
         <>
@@ -124,7 +123,7 @@ const AuthForm :FC = () => {
                                 array={positionData}
                                 register={register}
                             />
-                           {errorValue?.length > 0 && <div style={{color: 'red', marginBottom: '20px'}}>You must upload your avatar</div>}
+                           {errorUploads?.length > 0 && <div style={{color: 'red', marginBottom: '20px'}}>{errorUploads}</div>}
                             <UploadFile
                                 register={register}
                                 errors={errors}
@@ -133,6 +132,7 @@ const AuthForm :FC = () => {
                             <BaseBtn
                                 children={'Sign up'}
                                 disabled={disabled}
+                                onClick = {handlerUploadFile}
                             />
                         </form>
             }
