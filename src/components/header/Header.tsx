@@ -1,22 +1,22 @@
-import React, {FC} from 'react';
-import Logo from "./Logo";
-import BaseBtn from "../UI/button/BaseBtn";
+import React, { FC } from 'react';
 
-const Header :FC= () => {
+import Logo from './Logo';
+import Button from '../button/Button';
 
-    return (
-        <header className='header'>
-            <div className="container">
-                <div className="header-wrapper">
-                    <Logo title={'TESTTASK'}/>
-                    <div className='header-auth'>
-                        <BaseBtn children={'Users'}/>
-                        <BaseBtn children={'Sign up'}/>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
+const Header: FC = () => {
+  return (
+    <header className="header">
+      <div className="container">
+        <div className="header-wrapper">
+          <Logo title={'TESTTASK'} />
+          <div className="header-auth">
+            <Button children={'Users'} />
+            <Button children={'Sign up'} />
+          </div>
+        </div>
+      </div>
+    </header>
+  );
 };
 
-export default React.memo(Header);
+export default Header;

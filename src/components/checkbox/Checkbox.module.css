@@ -1,0 +1,35 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.checkbox {
+  display: none;
+}
+.fakeCheckbox {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #00bdd3;
+  border-radius: 50%;
+  position: relative;
+}
+.fakeCheckbox::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: #00bdd3;
+  opacity: 0;
+  transition: 0.2s;
+}
+.checkbox:checked + .fakeCheckbox::before {
+  opacity: 1;
+  transition: 0.2s;
+}

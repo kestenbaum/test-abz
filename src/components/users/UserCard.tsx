@@ -1,21 +1,31 @@
-import React, {FC} from 'react';
+import { FC } from 'react';
 
-interface IUserCard {
-   props: any
-}
-
-const UserCard :FC<IUserCard>= ({props}) => {
-    return (
-        <div className='user-card'>
-            <img className="block-img" src={props.photo}/>
-            <p className="person-name">{props.name}</p>
-            <div className="person-info">
-                <p className="person-information">{props.position}</p>
-                <a href={`mailto:${props.email}`}  title={props.email} className="person-information">{props.email}</a>
-                <a href={`tel: ${props.phone}`} className="person-information">{props.phone}</a>
-            </div>
-        </div>
-    );
+const UserCard: FC<UserInterface> = ({
+  phone,
+  email,
+  position,
+  name,
+  photo,
+}) => {
+  return (
+    <div className="user-card">
+      <img className="block-img" src={photo} alt="photo" />
+      <p className="person-name">{name}</p>
+      <div className="person-info">
+        <p className="person-information">{position}</p>
+        <a
+          href={`mailto:${email}`}
+          title={email}
+          className="person-information"
+        >
+          {email}
+        </a>
+        <a href={`tel: ${phone}`} className="person-information">
+          {phone}
+        </a>
+      </div>
+    </div>
+  );
 };
 
-export default React.memo(UserCard);
+export default UserCard;

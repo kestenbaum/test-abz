@@ -1,12 +1,18 @@
-@import "fonts.css";
-*, *::after, *::before {
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/src/assets/fonts/NunitoSans-Regular.woff2') format('woff2');
+}
+
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 
 .container {
@@ -18,7 +24,7 @@ body {
 
 .header {
   position: fixed;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   top: 0;
   left: 0;
   right: 0;
@@ -53,7 +59,7 @@ body {
   flex-direction: column;
   margin-top: 60px;
   height: calc(100vh - 60px);
-  background: center/cover no-repeat url("../assetc/bg.webp");
+  background: center/cover no-repeat url('../src/assets/bg.webp');
 }
 
 .block-description {
@@ -64,8 +70,11 @@ body {
   margin-bottom: 32px;
 }
 
-.heading, .heading-auth, .heading-users, .heading-screen {
-  font-family: "Nunito Sans", sans-serif;
+.heading,
+.heading-auth,
+.heading-users,
+.heading-screen {
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
@@ -74,17 +83,17 @@ body {
 }
 
 .heading-screen {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .description {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .users-wrapper {
@@ -122,7 +131,7 @@ body {
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 15px;
   width: 100%;
   max-width: 344px;
@@ -147,7 +156,7 @@ body {
 
 .person-information {
   position: relative;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -172,7 +181,7 @@ body {
 }
 
 .pagination-itemCurrent {
-  color: #F4E041;
+  color: #f4e041;
   transform: scale(1.1);
 }
 
@@ -215,12 +224,11 @@ body {
 }
 
 .person-select {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
-  filter: drop-shadow(0px, 8px, 5px, rgba(0, 0, 0, 0.87));
   color: rgba(0, 0, 0, 0.87);
 }
 
@@ -233,24 +241,24 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid #D0CFCF;
+  border: 1px solid #d0cfcf;
   border-radius: 5px;
   height: 54px;
   padding: 14px 16px;
   width: 100%;
   max-width: 380px;
-  color: #7E7E7E;
-  background-color: #E5E5E5;
+  color: #7e7e7e;
+  background-color: #e5e5e5;
 }
 
 .input-base::placeholder {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
-  color: #7E7E7E;
-  background-color: #E5E5E5;
+  color: #7e7e7e;
+  background-color: #e5e5e5;
 }
 
 .label {
@@ -268,13 +276,13 @@ body {
   display: inline-block;
   height: 20px;
   width: 20px;
-  border: 1px solid #00BDD3;
+  border: 1px solid #00bdd3;
   border-radius: 50%;
   position: relative;
 }
 
 .fakeCheckbox::before {
-  content: "";
+  content: '';
   position: absolute;
   display: block;
   top: 50%;
@@ -283,7 +291,7 @@ body {
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background: #00BDD3;
+  background: #00bdd3;
   opacity: 0;
   transition: 0.2s;
 }
@@ -307,29 +315,29 @@ body {
 }
 
 .fakeInput {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
   display: flex;
   align-items: center;
-  color: #7E7E7E;
+  color: #7e7e7e;
   padding: 13px 15px;
   border: 2px solid #000000;
 }
 
 .fileCustom {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
   display: flex;
   align-items: center;
-  color: #7E7E7E;
+  color: #7e7e7e;
   padding: 14px 15px;
-  border: 1px solid #7E7E7E;
+  border: 1px solid #7e7e7e;
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -362,7 +370,7 @@ body {
 }
 
 .footer {
-  border-top: 1px solid #7E7E7E;
+  border-top: 1px solid #7e7e7e;
 }
 
 .footer-wrapper {

@@ -1,0 +1,19 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+  gap: 20px;
+}
+.loaderIcon {
+  transform: rotate(0deg);
+  transition: all 0.5s ease;
+  animation: move 1s linear infinite;
+}
+@keyframes move {
+  from {
+    transform: rotate(-360deg);
+  }
+}
