@@ -52,10 +52,7 @@ export const userSlice = createSlice({
             .addCase(fetchUsersDate.fulfilled, (state, action) => {
                 state.loading = true;
                 state.userData = [...action.payload.users].sort(
-                    (a: UserInterface, b: UserInterface) => {
-                        b.registration_timestamp - a.registration_timestamp
-                    };
-            )
+                    (a: UserInterface, b: UserInterface) => b.registration_timestamp - a.registration_timestamp)
                 ;
                 state.totalUsers = action.payload.total_users;
                 state.error = '';
