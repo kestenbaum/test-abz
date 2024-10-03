@@ -9,3 +9,11 @@ interface UserInterface {
     registration_timestamp?: number;
 }
 
+interface Status {
+    disabled: boolean,
+    success: boolean,
+    error: string
+}
+
+
+

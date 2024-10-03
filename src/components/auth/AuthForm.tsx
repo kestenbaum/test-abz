@@ -1,27 +1,28 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import axios from 'axios';
 
 import BaseBtn from '../button/Button';
 import SuccessRegister from './SuccessRegister';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchPositionDate } from '../../store/reducer/positionSlice';
 import { fetchTokenSlice } from '../../store/reducer/tokenSlice';
-import UploadFile from '../uploadFile/uploadFile';
-import SelectedPositions from '../selectedPositions/SelectedPositions';
 import { fetchUsersDate } from '../../store/reducer/userSlice';
+import SelectedPositions from '../selectedPositions/SelectedPositions';
+import UploadFile from '../uploadFile/uploadFile';
 
 const AuthForm = () => {
+  const ref = useRef();
   const tokenData = useAppSelector((state) => state.ActionTokenSlice.tokenData);
   const positionData = useAppSelector(
     (state) => state.ActionPositionSlice.positionData,
   );
   const dispatch = useAppDispatch();
-
-  const [disabled, setDisabled] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
-  const [errorUploads, setErrorUploads] = useState<string>('');
-  const ref: any = useRef();
+  const [status, setStatus] = useState<Status>({
+    disabled: false,
+    success: false,
+    error: '',
+  });
 
   const {
     register,
@@ -46,6 +47,7 @@ const AuthForm = () => {
     formData.append('phone', data.phone);
     formData.append('position', data.position);
     formData.append('photo', photoItem);
+
     axios
       .post(
         'https://frontend-test-assignment-api.abz.agency/api/v1/users',
@@ -53,16 +55,15 @@ const AuthForm = () => {
         { headers: { Token: tokenData } },
       )
       .then((response) => {
-        setSuccess(response.data.success);
+        setStatus({ ...status, success: response.data.success });
         dispatch(fetchUsersDate(1));
       });
   };
 
   const handlerUploadFile = useCallback(() => {
-    ref.current?.files.length === 0
-      ? setErrorUploads('You must upload your avatar')
-      : setErrorUploads('');
-  }, [ref.current?.files]);
+    ref.current.files.length === 0 &&
+      setStatus({ ...status, error: 'You must upload your avatar' });
+  }, [ref.current.files]);
 
   useEffect(() => {
     dispatch(fetchPositionDate());
@@ -70,21 +71,13 @@ const AuthForm = () => {
   }, []);
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
+    Object.keys(errors).length === 0 &&
+      setStatus({ ...status, disabled: false });
   }, [Object.keys(errors).length]);
-
-  //clear error upload
-  setTimeout(() => {
-    setErrorUploads('');
-  }, 1000);
 
   return (
     <>
-      {success ? (
+      {status.success ? (
         <SuccessRegister />
       ) : (
         <form className="form-base" onSubmit={handleSubmit(onSubmit)}>
@@ -135,15 +128,15 @@ const AuthForm = () => {
           </div>
 
           <SelectedPositions array={positionData} register={register} />
-          {errorUploads?.length > 0 && (
+          {status.error?.length > 0 && (
             <div style={{ color: 'red', marginBottom: '20px' }}>
-              {errorUploads}
+              {status.error}
             </div>
           )}
           <UploadFile register={register} errors={errors} ref={ref} />
           <BaseBtn
             children={'Sign up'}
-            disabled={disabled}
+            disabled={status.disabled}
             onClick={handlerUploadFile}
           />
         </form>
