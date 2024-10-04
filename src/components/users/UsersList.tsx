@@ -54,12 +54,12 @@ const UsersList: FC = () => {
         </>
       </div>
       <>
-        {currentUserDate.length === totalAllUsers ? null : (
+        {currentUserDate.length === !totalAllUsers &&
           <BaseBtn onClick={showItems} children={'Show more'} />
-        )}
+        }
       </>
     </>
   );
 };
 
-export default React.memo(UsersList);
+export default UsersList;

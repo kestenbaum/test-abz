@@ -4,7 +4,7 @@ const SuccessRegister = () => {
   return (
     <div className="block-success">
       <h2 className="heading">User successfully registered</h2>
-      <img src={icon} alt="" className="success-image" />
+      <img src={icon} alt="icon" className="success-image" />
     </div>
   );
 };
