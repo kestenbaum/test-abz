@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import Logo from './Logo';
-import Button from '../button/Button';
+import Button from '../UI/button/Button';
 import Container from '../container/Container';
 
 const Header: FC = () => {

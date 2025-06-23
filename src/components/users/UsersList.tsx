@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import UserCard from './UserCard';
-import BaseBtn from '../button/Button';
-import Loader from '../loader/Loader';
+import BaseBtn from '../UI/button/Button';
+import Loader from '../UI/loader/Loader';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUsersDate } from '../../store/reducer/userSlice';
 

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import loader from '../../assets/Preloaderloader.svg';
+import loader from '../../../assets/Preloaderloader.svg';
 import style from './Loader.module.css';
 
 const Loader: FC = () => {

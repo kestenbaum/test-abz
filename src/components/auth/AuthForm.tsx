@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 
-import BaseBtn from '../button/Button';
+import BaseBtn from '../UI/button/Button';
 import SuccessRegister from './SuccessRegister';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchPositionDate } from '../../store/reducer/positionSlice';
